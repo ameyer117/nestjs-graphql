@@ -9,14 +9,27 @@ import { GetUsersArgs } from './dto/args/get-users.args';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
+  private users: User[] = [
+    {
+      userId: '1',
+      age: 30,
+      email: '11meyal@gmail.com',
+      password: 'password',
+    },
+  ];
 
   public getUsers(getUsersArgs: GetUsersArgs) {
-    return getUsersArgs.userIds.map((userId) => this.getUserById({ userId }));
+    return getUsersArgs.userIds
+      .map((userId) => this.getUserById({ userId }))
+      .filter(Boolean);
   }
 
   public getUserById(getUserArgs: GetUserArgs) {
     return this.users.find((user) => user.userId === getUserArgs.userId);
+  }
+
+  public getUserByEmail(email: string): User | undefined {
+    return this.users.find((user) => user.email === email);
   }
 
   public createUser(createUserData: CreateUserInput) {
