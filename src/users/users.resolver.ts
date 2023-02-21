@@ -12,13 +12,13 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User, { name: 'user', nullable: true })
-  async getUser(@Args() getUserArgs: GetUserArgs): User {
-    return this.usersService.getUserById();
+  async getUser(@Args() getUserArgs: GetUserArgs): Promise<User> {
+    return this.usersService.getUserById(getUserArgs);
   }
 
   @Query(() => [User], { name: 'users', nullable: 'items' })
-  async getUsers(@Args() getUsersArgs: GetUsersArgs): User[] {
-    return this.usersService.getUsers();
+  async getUsers(@Args() getUsersArgs: GetUsersArgs): Promise<User[]> {
+    return this.usersService.getUsers(getUsersArgs);
   }
 
   @Mutation(() => User)

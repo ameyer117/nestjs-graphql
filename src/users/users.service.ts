@@ -26,6 +26,7 @@ export class UsersService {
     };
 
     this.users.push(user);
+    return user;
   }
 
   public updateUser(updateUserData: UpdateUserInput) {
@@ -34,6 +35,7 @@ export class UsersService {
     );
     if (userIndex === -1) return;
     this.users[userIndex] = { ...this.users[userIndex], ...updateUserData };
+    return this.users[userIndex];
   }
 
   public deleteUser(deleteUserData: DeleteUserInput) {
@@ -41,6 +43,6 @@ export class UsersService {
       (user) => user.userId === deleteUserData.userId,
     );
     if (userIndex === -1) return;
-    this.users.splice(userIndex, 1);
+    return this.users.splice(userIndex, 1)[0];
   }
 }
